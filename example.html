@@ -1,0 +1,68 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Video.js Resolution Switcher</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="node_modules/video.js/dist/video-js.css" rel="stylesheet">
+  <link href="lib/videojs-resolution-switcher.css" rel="stylesheet">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+    .info {
+      background-color: #eee;
+      border: thin solid #333;
+      border-radius: 3px;
+      padding: 0 5px;
+      text-align: center;
+    }
+    .video-js {
+      margin: 40px auto;
+    }
+  </style>
+</head>
+<body>
+  <div class="info">
+    <p>
+      You can see the Video.js Test plugin in action below.
+      Look at the source of this page to see how to use it with your videos.
+    </p>
+  </div>
+
+  <video id='video' class="video-js vjs-default-skin"></video>
+
+  <script src="node_modules/video.js/dist/video.js"></script>
+  <script src="lib/videojs-resolution-switcher.js"></script>
+  <script>
+    // fire up the plugin
+    videojs('video', {
+      controls: true,
+      muted: true,
+      fluid: true
+    }, function(){
+      var player = this;
+
+      player.newVideoSources([
+        {
+          src: 'http://media.xiph.org/mango/tears_of_steel_1080p.webm',
+          type: 'video/webm',
+          label: '360'
+        },
+        {
+          src: 'http://mirrorblender.top-ix.org/movies/sintel-1024-surround.mp4',
+          type: 'video/mp4',
+          label: '720'
+        }
+      ])
+
+      window.player = player;
+
+      player.on('resolutionchange', function(){
+        console.info('Source changed to %s', player.src())
+      })
+
+    }).videoJsResolutionSwitcher();
+  </script>
+</body>
+</html>
