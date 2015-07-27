@@ -49,7 +49,7 @@ There's also a [working example](example.html) of the plugin you can check out i
 // Update video sources
 player.newVideoSources([
   { type: "video/mp4", src: "http://www.example.com/path/to/video.mp4", label: 'SD' },
-  { type: "video/mp4", src: "http://www.example.com/path/to/video.mp4", lable: 'HD' },
+  { type: "video/mp4", src: "http://www.example.com/path/to/video.mp4", label: 'HD' },
   { type: "video/mp4", src: "http://www.example.com/path/to/video.mp4", label: '4k' }
 ])
 
