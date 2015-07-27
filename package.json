@@ -1,8 +1,8 @@
 {
-  "name": "videojs-test",
-  "version": "0.0.0",
+  "name": "videojs-resolution-switcher",
+  "version": "0.1.0",
   "author": "Kasper Moskwiak",
-  "description": "A revolutionary plugin for video.js",
+  "description": "Resolution switcher for video.js 5",
   "license": "Apache-2.0",
   "keywords": [
     "videojs",
