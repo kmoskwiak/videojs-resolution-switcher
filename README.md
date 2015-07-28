@@ -4,10 +4,10 @@ Resolution switcher for [video.js](https://github.com/videojs/video.js) build fo
 
 ## Getting Started
 
-Once you've added the plugin script to your page, you can use it with any video:
+Setup sources dynamically:
 
 ```html
-<video id='video'></video>
+<video id='video' class="video-js vjs-default-skin"></video>
 <script src="video.js"></script>
 <script src="videojs-resolution-switcher.js"></script>
 <script>
@@ -16,7 +16,7 @@ Once you've added the plugin script to your page, you can use it with any video:
   }, function(){
   
     // Add dynamically sources via newVideoSources method
-    player.newVideoSources([
+    player.updateSrc([
         {
           src: 'http://media.xiph.org/mango/tears_of_steel_1080p.webm',
           type: 'video/webm',
@@ -37,17 +37,31 @@ Once you've added the plugin script to your page, you can use it with any video:
 </script>
 ```
 
+Or use `<source>` tags:
+
+```html
+
+<video id="video" class="video-js vjs-default-skin" width="1000" controls data-setup='{}'>
+   <source src="http://mirrorblender.top-ix.org/movies/sintel-1024-surround.mp4" type='video/mp4' label='SD' />
+   <source src="http://media.xiph.org/mango/tears_of_steel_1080p.webm" type='video/webm' label='HD'/>
+</video>
+ <script>
+  videojs('video').videoJsResolutionSwitcher()
+</script>
+
+```
+
 There's also a [working example](example.html) of the plugin you can check out if you're having trouble.
 
 ## Methods
 
 
-### newVideoSources([source])
+### updateSrc([source])
 
 ```javascript
 
 // Update video sources
-player.newVideoSources([
+player.updateSrc([
   { type: "video/mp4", src: "http://www.example.com/path/to/video.mp4", label: 'SD' },
   { type: "video/mp4", src: "http://www.example.com/path/to/video.mp4", label: 'HD' },
   { type: "video/mp4", src: "http://www.example.com/path/to/video.mp4", label: '4k' }
