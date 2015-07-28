@@ -9,6 +9,7 @@
   <style>
     body {
       font-family: Arial, sans-serif;
+      background: #777;
     }
     .info {
       background-color: #eee;
@@ -25,12 +26,22 @@
 <body>
   <div class="info">
     <p>
-      You can see the Video.js Test plugin in action below.
-      Look at the source of this page to see how to use it with your videos.
+      Set sources dynamically
     </p>
   </div>
 
   <video id='video' class="video-js vjs-default-skin"></video>
+
+  <div class="info">
+    <p>
+      Set sources inside <code>&ltvideo&gt</code> tag
+    </p>
+  </div>
+
+  <video id="video_1" class="video-js vjs-default-skin" width="1000" controls data-setup='{}'>
+   <source src="http://mirrorblender.top-ix.org/movies/sintel-1024-surround.mp4" type='video/mp4' label='SD' />
+   <source src="http://media.xiph.org/mango/tears_of_steel_1080p.webm" type='video/webm' label='HD'/>
+  </video>
 
   <script src="node_modules/video.js/dist/video.js"></script>
   <script src="lib/videojs-resolution-switcher.js"></script>
@@ -39,11 +50,11 @@
     videojs('video', {
       controls: true,
       muted: true,
-      fluid: true
+      width: 1000
     }, function(){
       var player = this;
 
-      player.newVideoSources([
+      player.updateSrc([
         {
           src: 'http://media.xiph.org/mango/tears_of_steel_1080p.webm',
           type: 'video/webm',
@@ -61,6 +72,11 @@
       })
 
     }).videoJsResolutionSwitcher();
+  </script>
+
+
+  <script>
+    videojs('video_1').videoJsResolutionSwitcher()
   </script>
 </body>
 </html>
