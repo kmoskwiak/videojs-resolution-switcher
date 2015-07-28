@@ -15,7 +15,7 @@ Setup sources dynamically:
     controls: true
   }, function(){
   
-    // Add dynamically sources via newVideoSources method
+    // Add dynamically sources via updateSrc method
     player.updateSrc([
         {
           src: 'http://media.xiph.org/mango/tears_of_steel_1080p.webm',
