@@ -31,6 +31,7 @@
     setup: function() {
       // force HTML support so the tests run in a reasonable
       // environment under phantomjs
+      videojs.Html5 = videojs.Html5 || {};
       realIsHtmlSupported = videojs.Html5.isSupported;
       videojs.Html5.isSupported = function() {
         return true;
@@ -44,7 +45,7 @@
       player = videojs(video);
 
       // initialize the plugin with the default options
-      player.test();
+      player.videoJsResolutionSwitcher();
     },
     teardown: function() {
       videojs.Html5.isSupported = realIsHtmlSupported;
@@ -52,6 +53,6 @@
   });
 
   test('registers itself', function() {
-    ok(player.test, 'registered the plugin');
+    ok(player.videoJsResolutionSwitcher, 'registered the plugin');
   });
 })(window, window.videojs, window.QUnit);
