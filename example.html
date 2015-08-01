@@ -52,7 +52,12 @@
     videojs('video', {
       controls: true,
       muted: true,
-      width: 1000
+      width: 1000,
+      plugins: {
+        videoJsResolutionSwitcher: {
+          default: 'low' // Default resolution [{Number}, 'low', 'high']
+        }
+      }
     }, function(){
       var player = this;
       window.player = player
@@ -61,12 +66,14 @@
         {
           src: 'http://media.xiph.org/mango/tears_of_steel_1080p.webm',
           type: 'video/webm',
-          label: 'SD'
+          label: 'SD',
+          res: 360
         },
         {
           src: 'http://mirrorblender.top-ix.org/movies/sintel-1024-surround.mp4',
           type: 'video/mp4',
-          label: 'HD'
+          label: 'HD',
+          res: 720
         }
       ])
 
