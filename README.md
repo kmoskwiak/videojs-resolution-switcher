@@ -81,7 +81,7 @@ videojs('video', {
 
 ## Example
 
-[Working example](example.html) of the plugin you can check out if you're having trouble. Or check out this [Demo](https://kmoskwiak.github.io/videojs-resolution-switcher/)
+[Working example](example.html) of the plugin you can check out if you're having trouble. Or check out this [demo](https://kmoskwiak.github.io/videojs-resolution-switcher/).
 
 ## Methods
 
