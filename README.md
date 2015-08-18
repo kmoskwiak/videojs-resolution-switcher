@@ -1,6 +1,6 @@
 # Video.js Resolution Switcher
 
-Resolution switcher for [video.js](https://github.com/videojs/video.js) build for [5.0.0-rc.29](https://github.com/videojs/video.js/tree/v5.0.0-rc.29)
+Resolution switcher for [video.js](https://github.com/videojs/video.js) build for [5.0.0-rc.52](https://github.com/videojs/video.js/tree/v5.0.0-rc.52)
 
 ## Getting Started
 
