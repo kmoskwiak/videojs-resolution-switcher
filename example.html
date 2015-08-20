@@ -38,11 +38,11 @@
     </p>
   </div>
 
-  <video id="video_1" class="video-js vjs-default-skin" width="1000" controls data-setup='{}'>
-   <source src="http://mirrorblender.top-ix.org/movies/sintel-1024-surround.mp4" type='video/mp4' label='SD' res='480' />
-   <source src="http://media.xiph.org/mango/tears_of_steel_1080p.webm" type='video/webm' label='HD' res='1080'/>
-    <source src="http://media.xiph.org/mango/tears_of_steel_1080p.webm" type='video/webm' label='phone' res='144'/>
-    <source src="http://media.xiph.org/mango/tears_of_steel_1080p.webm" type='video/webm' label='4k' res='2160'/>
+  <video id="video_1" class="video-js vjs-default-skin" width="1000" controls data-setup='{}' muted>
+    <source src="http://mirrorblender.top-ix.org/movies/sintel-1024-surround.mp4?480" type='video/mp4' label='SD' res='480' />
+    <source src="http://media.xiph.org/mango/tears_of_steel_1080p.webm?1080" type='video/webm' label='HD' res='1080'/>
+    <source src="http://media.xiph.org/mango/tears_of_steel_1080p.webm?144" type='video/webm' label='phone' res='144'/>
+    <source src="http://media.xiph.org/mango/tears_of_steel_1080p.webm?2160" type='video/webm' label='4k' res='2160'/>
   </video>
 
   <script src="node_modules/video.js/dist/video.js"></script>
@@ -55,7 +55,8 @@
       width: 1000,
       plugins: {
         videoJsResolutionSwitcher: {
-          default: 'high' // Default resolution [{Number}, 'low', 'high']
+          default: 'high', // Default resolution [{Number}, 'low', 'high'],
+          dynamicLabel: true // Display dynamic labels or gear symbol
         }
       }
     }, function(){
