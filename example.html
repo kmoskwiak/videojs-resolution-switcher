@@ -55,7 +55,7 @@
       width: 1000,
       plugins: {
         videoJsResolutionSwitcher: {
-          default: 'low' // Default resolution [{Number}, 'low', 'high']
+          default: 'high' // Default resolution [{Number}, 'low', 'high']
         }
       }
     }, function(){
@@ -81,7 +81,7 @@
         console.info('Source changed to %s', player.src())
       })
 
-    }).videoJsResolutionSwitcher();
+    })
   </script>
 
 
