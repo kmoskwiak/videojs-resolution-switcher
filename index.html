@@ -69,7 +69,8 @@
       fluid: true,
       plugins: {
         videoJsResolutionSwitcher: {
-          default: 'low' // Default resolution [{Number}, 'low', 'high']
+          default: 'low', // Default resolution [{Number}, 'low', 'high'],
+          dynamicLabel: true
         }
       }
     }, function(){
@@ -92,7 +93,7 @@
       player.on('resolutionchange', function(){
         console.info('Source changed to %s', player.src())
       })
-    }).videoJsResolutionSwitcher();
+    })
   </script>
 
 

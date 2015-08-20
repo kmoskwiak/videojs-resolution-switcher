@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/kmoskwiak/videojs-resolution-switcher/issues"
   },
-  "homepage": "https://github.com/kmoskwiak/videojs-resolution-switcher#readme"
+  "homepage": "https://github.com/kmoskwiak/videojs-resolution-switcher#readme",
+  "dependencies": {
+    "videojs-resolution-switcher": "git+https://github.com/kmoskwiak/videojs-resolution-switcher.git"
+  }
 }
