@@ -39,13 +39,16 @@
   </div>
 
   <video id="video_1" class="video-js vjs-default-skin" width="1000" controls data-setup='{}' muted>
-    <source src="http://mirrorblender.top-ix.org/movies/sintel-1024-surround.mp4?480" type='video/mp4' label='SD' res='480' />
-    <source src="http://media.xiph.org/mango/tears_of_steel_1080p.webm?1080" type='video/webm' label='HD' res='1080'/>
-    <source src="http://media.xiph.org/mango/tears_of_steel_1080p.webm?144" type='video/webm' label='phone' res='144'/>
-    <source src="http://media.xiph.org/mango/tears_of_steel_1080p.webm?2160" type='video/webm' label='4k' res='2160'/>
+    <source src="https://vjs.zencdn.net/v/oceans.mp4?480" type='video/mp4' label='SD' res='480' />
+    <source src="https://vjs.zencdn.net/v/oceans.mp4?1080" type='video/mp4' label='HD' res='1080'/>
+    <source src="https://vjs.zencdn.net/v/oceans.mp4?144" type='video/mp4' label='phone' res='144'/>
+    <source src="https://vjs.zencdn.net/v/oceans.mp4?2160" type='video/mp4' label='4k' res='2160'/>
   </video>
 
   <script src="node_modules/video.js/dist/video.js"></script>
+  <script>
+    videojs.options.flash.swf = "node_modules/video.js/dist/video-js.swf"
+  </script>
   <script src="lib/videojs-resolution-switcher.js"></script>
   <script>
     // fire up the plugin
@@ -55,7 +58,7 @@
       width: 1000,
       plugins: {
         videoJsResolutionSwitcher: {
-          default: 'high', // Default resolution [{Number}, 'low', 'high'],
+          default: '360', // Default resolution [{Number}, 'low', 'high'],
           dynamicLabel: true // Display dynamic labels or gear symbol
         }
       }
@@ -65,13 +68,13 @@
 
       player.updateSrc([
         {
-          src: 'http://media.xiph.org/mango/tears_of_steel_1080p.webm',
-          type: 'video/webm',
+          src: 'https://vjs.zencdn.net/v/oceans.mp4?sd',
+          type: 'video/mp4',
           label: 'SD',
           res: 360
         },
         {
-          src: 'http://mirrorblender.top-ix.org/movies/sintel-1024-surround.mp4',
+          src: 'https://vjs.zencdn.net/v/oceans.mp4?hd',
           type: 'video/mp4',
           label: 'HD',
           res: 720
