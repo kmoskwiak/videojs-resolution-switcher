@@ -164,10 +164,6 @@
   /* Make video.js videos align top when next to video elements */
   vertical-align: top;
   box-sizing: border-box;
-  /* Default to the video element width/height. This will be overridden by
-   * the source width height unless changed elsewhere. */
-  width: 300px;
-  height: 150px;
   color: #fff;
   background-color: #000;
   position: relative;

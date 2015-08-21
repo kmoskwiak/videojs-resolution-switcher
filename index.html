@@ -52,10 +52,10 @@
   </div>
 
   <video id="video_1" class="video-js vjs-default-skin" width="1000" controls fluid='true' data-setup='{}' >
-    <source src="http://mirrorblender.top-ix.org/movies/sintel-1024-surround.mp4" type='video/mp4' label='SD' res='480' />
-    <source src="http://media.xiph.org/mango/tears_of_steel_1080p.webm" type='video/webm' label='HD' res='1080'/>
-    <source src="http://media.xiph.org/mango/tears_of_steel_1080p.webm" type='video/webm' label='phone' res='144'/>
-    <source src="http://media.xiph.org/mango/tears_of_steel_1080p.webm" type='video/webm' label='4k' res='2160'/>
+    <source src="https://vjs.zencdn.net/v/oceans.mp4?sd" type='video/mp4' label='SD' res='480' />
+    <source src="https://vjs.zencdn.net/v/oceans.mp4?hd" type='video/mp4' label='HD' res='1080'/>
+    <source src="https://vjs.zencdn.net/v/oceans.mp4?phone" type='video/mp4' label='phone' res='144'/>
+    <source src="https://vjs.zencdn.net/v/oceans.mp4?4k" type='video/mp4' label='4k' res='2160'/>
   </video>
   </div>
   <script src="node_modules/video.js/dist/video.js"></script>
@@ -78,13 +78,13 @@
       window.player = player
       player.updateSrc([
         {
-          src: 'http://media.xiph.org/mango/tears_of_steel_1080p.webm',
-          type: 'video/webm',
+          src: 'https://vjs.zencdn.net/v/oceans.mp4?SD',
+          type: 'video/mp4',
           label: 'SD',
           res: 360
         },
         {
-          src: 'http://mirrorblender.top-ix.org/movies/sintel-1024-surround.mp4',
+          src: 'https://vjs.zencdn.net/v/oceans.mp4?HD',
           type: 'video/mp4',
           label: 'HD',
           res: 720
