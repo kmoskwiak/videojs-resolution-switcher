@@ -361,7 +361,7 @@ about what's required to play video. */
   -o-transition: visibility 1s, opacity 1s;
   transition: visibility 1s, opacity 1s; }
 
-.video-js.vjs-controls-disabled .vjs-control-bar, .video-js.vjs-using-native-controls .vjs-control-bar, .video-js.vjs-error .vjs-control-bar {
+.video-js.video-js.video-js.vjs-controls-disabled .vjs-control-bar, .video-js.video-js.video-js.vjs-using-native-controls .vjs-control-bar, .video-js.video-js.video-js.vjs-error .vjs-control-bar {
   display: none; }
 
 .video-js.vjs-audio.vjs-has-started.vjs-user-inactive.vjs-playing .vjs-control-bar {
