@@ -3,6 +3,10 @@
   "version": "0.1.0",
   "author": "Kasper Moskwiak",
   "description": "Resolution switcher for video.js 5",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:kmoskwiak/videojs-resolution-switcher.git"
+  },
   "license": "Apache-2.0",
   "keywords": [
     "videojs",
