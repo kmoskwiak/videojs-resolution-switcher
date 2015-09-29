@@ -9,7 +9,10 @@
     "html5",
     "flash",
     "video",
-    "player"
+    "player",
+    "resolution",
+    "source",
+    "videojs-plugin"
   ],
   "dependencies": {},
   "devDependencies": {
@@ -20,10 +23,10 @@
     "grunt-contrib-uglify": "^0.2",
     "grunt-contrib-watch": "^0.4",
 
-    "video.js": "^5.0.0-rc.101",
+    "video.js": "^5.0.0",
     "qunitjs": "^1.12"
   },
   "peerDependencies": {
-    "video.js": "^5.0.0-rc.101"
+    "video.js": "^5.0.0"
   }
 }
