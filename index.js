@@ -8,6 +8,104 @@
   var defaults = {},
       videoJsResolutionSwitcher;
 
+  function setSourcesSanitized(player, sources) {
+    return player.src(sources.map(function(src) {
+      return {src: src.src, type: src.type, res: src.res};
+    }));
+  }
+
+  /*
+   * Resolution menu item
+   */
+  var MenuItem = videojs.getComponent('MenuItem');
+  var ResolutionMenuItem = videojs.extend(MenuItem, {
+    constructor: function(player, options, onClickListener, label){
+      this.onClickListener = onClickListener;
+      this.label = label;
+      // Sets this.player_, this.options_ and initializes the component
+      MenuItem.call(this, player, options);
+      this.src = options.src;
+
+      this.on('click', this.onClick);
+      this.on('touchstart', this.onClick);
+
+      if (options.initialySelected) {
+        this.showAsLabel();
+        this.selected(true);
+      }
+    },
+    showAsLabel: function() {
+      // Change menu button label to the label of this item if the menu button label is provided
+      if(this.label) {
+        this.label.innerHTML = this.options_.label;
+      }
+    },
+    onClick: function(){
+      this.onClickListener(this);
+      // Hide bigPlayButton
+      this.player_.bigPlayButton.hide();
+      // Remember player state
+      var currentTime = this.player_.currentTime();
+      var isPaused = this.player_.paused();
+      this.showAsLabel()
+      // Change player source and wait for loadeddata event, then play video
+      // loadedmetadata doesn't work right now for flash.
+      // Probably because of https://github.com/videojs/video-js-swf/issues/124
+      setSourcesSanitized(this.player_, this.src).one('loadeddata', function() {
+        this.player_.currentTime(currentTime);
+        if(!isPaused){ this.player_.play(); }
+        this.player_.trigger('resolutionchange');
+      });
+    }
+  });
+
+
+  /*
+   * Resolution menu button
+   */
+   var MenuButton = videojs.getComponent('MenuButton');
+   var ResolutionMenuButton = videojs.extend(MenuButton, {
+     constructor: function(player, options, settings, label){
+      this.sources = options.sources;
+      this.label = label;
+      // Sets this.player_, this.options_ and initializes the component
+      MenuButton.call(this, player, options);
+      this.controlText('Quality');
+
+      if(settings.dynamicLabel){
+        this.el().appendChild(label);
+      }else{
+        var staticLabel = document.createElement('span');
+        staticLabel.classList.add('vjs-resolution-button-staticlabel');
+        this.el().appendChild(staticLabel);
+      }
+     },
+     createItems: function(){
+       var menuItems = [];
+       var labels = (this.sources && this.sources.label) || {};
+       var onClickUnselectOthers = function(clickedItem) {
+        menuItems.map(function(item) {
+          item.selected(item === clickedItem);
+        });
+       };
+
+       for (var key in labels) {
+         if (labels.hasOwnProperty(key)) {
+          menuItems.push(new ResolutionMenuItem(
+            this.player_,
+            {
+              label: key,
+              src: labels[key],
+              initialySelected: +key === +this.options_.initialySelectedRes
+            },
+            onClickUnselectOthers,
+            this.label));
+          }
+       }
+       return menuItems;
+     }
+   });
+
   /**
    * Initialize the plugin.
    * @param options (optional) {object} configuration for the plugin
@@ -18,104 +116,6 @@
         label = document.createElement('span');
 
     label.classList.add('vjs-resolution-button-label');
-
-    function setSourcesSanitized(player, sources) {
-      return player.src(sources.map(function(src) {
-        return {src: src.src, type: src.type, res: src.res};
-      }));
-    }
-
-    /*
-     * Resolution menu item
-     */
-    var MenuItem = videojs.getComponent('MenuItem');
-    var ResolutionMenuItem = videojs.extend(MenuItem, {
-      constructor: function(player, options, onClickListener, label){
-        this.onClickListener = onClickListener;
-        this.label = label;
-        // Sets this.player_, this.options_ and initializes the component
-        MenuItem.call(this, player, options);
-        this.src = options.src;
-
-        this.on('click', this.onClick);
-        this.on('touchstart', this.onClick);
-
-        if (options.initialySelected) {
-          this.showAsLabel();
-          this.selected(true);
-        }
-      },
-      showAsLabel: function() {
-        // Change menu button label to the label of this item if the menu button label is provided
-        if(this.label) {
-          this.label.innerHTML = this.options_.label;
-        }
-      },
-      onClick: function(){
-        this.onClickListener(this);
-        // Hide bigPlayButton
-        this.player_.bigPlayButton.hide();
-        // Remember player state
-        var currentTime = this.player_.currentTime();
-        var isPaused = this.player_.paused();
-        this.showAsLabel()
-        // Change player source and wait for loadeddata event, then play video
-        // loadedmetadata doesn't work right now for flash.
-        // Probably because of https://github.com/videojs/video-js-swf/issues/124
-        setSourcesSanitized(this.player_, this.src).one('loadeddata', function() {
-          this.player_.currentTime(currentTime);
-          if(!isPaused){ this.player_.play(); }
-          this.player_.trigger('resolutionchange');
-        });
-      }
-    });
-
-
-    /*
-     * Resolution menu button
-     */
-     var MenuButton = videojs.getComponent('MenuButton');
-     var ResolutionMenuButton = videojs.extend(MenuButton, {
-       constructor: function(player, options, settings, label){
-        this.sources = options.sources;
-        this.label = label;
-        // Sets this.player_, this.options_ and initializes the component
-        MenuButton.call(this, player, options);
-        this.controlText('Quality');
-
-        if(settings.dynamicLabel){
-          this.el().appendChild(label);
-        }else{
-          var staticLabel = document.createElement('span');
-          staticLabel.classList.add('vjs-resolution-button-staticlabel');
-          this.el().appendChild(staticLabel);
-        }
-       },
-       createItems: function(){
-         var menuItems = [];
-         var labels = (this.sources && this.sources.label) || {};
-         var onClickUnselectOthers = function(clickedItem) {
-          menuItems.map(function(item) {
-            item.selected(item === clickedItem);
-          });
-         };
-
-         for (var key in labels) {
-           if (labels.hasOwnProperty(key)) {
-            menuItems.push(new ResolutionMenuItem(
-              this.player_,
-              {
-                label: key,
-                src: labels[key],
-                initialySelected: +key === +this.options_.initialySelectedRes
-              },
-              onClickUnselectOthers,
-              this.label));
-            }
-         }
-         return menuItems;
-       }
-     });
 
     player.updateSrc = function(src){
       //Return current src if src is not given
