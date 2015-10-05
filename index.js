@@ -19,51 +19,67 @@
 
     label.classList.add('vjs-resolution-button-label');
 
-    /*
-     * Resolution menu item
-     */
-    var MenuItem = videojs.getComponent('MenuItem');
-    var ResolutionMenuItem = videojs.extend(MenuItem, {
-      constructor: function(player, options){
-
-        MenuItem.call(this, player, options);
-        this.src = options.src;
-
-        this.on('click', this.onClick);
-        this.on('touchstart', this.onClick);
-      },
-      onClick: function(){
-        // Hide bigPlayButton
-        player.bigPlayButton.hide();
-        // Remember player state
-        var currentTime = player.currentTime();
-        var isPaused = player.paused();
-        // Change menu button label
-        label.innerHTML = this.options_.label;
-        // Change player source and wait for loadeddata event, then play video
-        // loadedmetadata doesn't work right now for flash.
-        // Probably because of https://github.com/videojs/video-js-swf/issues/124
-        setSourceSanitized(this.src).one( 'loadeddata', function() {
-          player.currentTime(currentTime);
-          if(!isPaused){ player.play(); }
-          player.trigger('resolutionchange');
-        });
-      }
-    });
-
-    function setSourceSanitized(sources) {
+    function setSourcesSanitized(player, sources) {
       return player.src(sources.map(function(src) {
         return {src: src.src, type: src.type, res: src.res};
       }));
     }
 
-   /*
-    * Resolution menu button
-    */
-    var MenuButton = videojs.getComponent('MenuButton');
-    var ResolutionMenuButton = videojs.extend(MenuButton, {
-      constructor: function(player, options){
+    /*
+     * Resolution menu item
+     */
+    var MenuItem = videojs.getComponent('MenuItem');
+    var ResolutionMenuItem = videojs.extend(MenuItem, {
+      constructor: function(player, options, onClickListener, label){
+        this.onClickListener = onClickListener;
+        this.label = label;
+        // Sets this.player_, this.options_ and initializes the component
+        MenuItem.call(this, player, options);
+        this.src = options.src;
+
+        this.on('click', this.onClick);
+        this.on('touchstart', this.onClick);
+
+        if (options.initialySelected) {
+          this.showAsLabel();
+          this.selected(true);
+        }
+      },
+      showAsLabel: function() {
+        // Change menu button label to the label of this item if the menu button label is provided
+        if(this.label) {
+          this.label.innerHTML = this.options_.label;
+        }
+      },
+      onClick: function(){
+        this.onClickListener(this);
+        // Hide bigPlayButton
+        this.player_.bigPlayButton.hide();
+        // Remember player state
+        var currentTime = this.player_.currentTime();
+        var isPaused = this.player_.paused();
+        this.showAsLabel()
+        // Change player source and wait for loadeddata event, then play video
+        // loadedmetadata doesn't work right now for flash.
+        // Probably because of https://github.com/videojs/video-js-swf/issues/124
+        setSourcesSanitized(this.player_, this.src).one('loadeddata', function() {
+          this.player_.currentTime(currentTime);
+          if(!isPaused){ this.player_.play(); }
+          this.player_.trigger('resolutionchange');
+        });
+      }
+    });
+
+
+    /*
+     * Resolution menu button
+     */
+     var MenuButton = videojs.getComponent('MenuButton');
+     var ResolutionMenuButton = videojs.extend(MenuButton, {
+       constructor: function(player, options, settings, label){
         this.sources = options.sources;
+        this.label = label;
+        // Sets this.player_, this.options_ and initializes the component
         MenuButton.call(this, player, options);
         this.controlText('Quality');
 
@@ -74,22 +90,32 @@
           staticLabel.classList.add('vjs-resolution-button-staticlabel');
           this.el().appendChild(staticLabel);
         }
-      },
-      createItems: function(){
-        var menuItems = [];
-        var labels = (this.sources && this.sources.label) || {};
-        for (var key in labels) {
-          if (labels.hasOwnProperty(key)) {
-            menuItems.push(new ResolutionMenuItem(player, {
-              label: key,
-              src: labels[key]
-            }));
-          }
-        }
-        return menuItems;
-      }
-    });
+       },
+       createItems: function(){
+         var menuItems = [];
+         var labels = (this.sources && this.sources.label) || {};
+         var onClickUnselectOthers = function(clickedItem) {
+          menuItems.map(function(item) {
+            item.selected(item === clickedItem);
+          });
+         };
 
+         for (var key in labels) {
+           if (labels.hasOwnProperty(key)) {
+            menuItems.push(new ResolutionMenuItem(
+              this.player_,
+              {
+                label: key,
+                src: labels[key],
+                initialySelected: +key === +this.options_.initialySelectedRes
+              },
+              onClickUnselectOthers,
+              this.label));
+            }
+         }
+         return menuItems;
+       }
+     });
 
     player.updateSrc = function(src){
       //Return current src if src is not given
@@ -102,12 +128,11 @@
       //Sort sources
       src = src.sort(compareResolutions);
       var groupedSrc = bucketSources(src);
-      var menuButton = new ResolutionMenuButton(player, { sources: groupedSrc });
+      var choosen = chooseSrc(groupedSrc, src);
+      var menuButton = new ResolutionMenuButton(player, { sources: groupedSrc, initialySelectedRes: choosen.res }, settings, label);
       menuButton.el().classList.add('vjs-resolution-button');
       player.controlBar.resolutionSwitcher = player.controlBar.addChild(menuButton);
-      var newSource = chooseSrc(src, groupedSrc);
-      label.innerHTML = newSource.label;
-      return setSourceSanitized(newSource);
+      return setSourcesSanitized(player, choosen.sources);
     };
 
     /**
@@ -156,15 +181,20 @@
 
     /**
      * Choose src if option.default is specified
-     * @param   {Array}  src Array of sources
      * @param   {Object} groupedSrc {res: { key: [] }}
-     * @returns {Array} one or many source objects. As array for convenience
+     * @param   {Array}  src Array of sources sorted by resolution used to find high and low res
+     * @returns {Object} {res: string, sources: []}
      */
-    function chooseSrc(src, groupedSrc){
-      if(settings.default === 'low'){ return [src[src.length - 1]]; }
-      if(settings.default === 'high'){ return [src[0]]; }
-      if(groupedSrc.res[settings.default]){ return groupedSrc.res[settings.default]; }
-      return [src[src.length - 1]];
+    function chooseSrc(groupedSrc, src){
+      var selectedRes = settings.default;
+      if (selectedRes === 'high') {
+        selectedRes = src[0].res;
+      } else if (selectedRes === 'low' || selectedRes == null) {
+        // Select low-res if default is low or not set
+        selectedRes = src[src.length - 1].res;
+      }
+
+      return {res: selectedRes, sources: groupedSrc.res[selectedRes]};
     }
 
     // Create resolution switcher for videos form <source> tag inside <video>
