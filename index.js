@@ -1,12 +1,12 @@
 /*! videojs-resolution-switcher - v0.0.0 - 2015-7-26
  * Copyright (c) 2015 Kasper Moskwiak
+ * Modified by Pierre Kraft
  * Licensed under the Apache-2.0 license. */
 (function(window, videojs) {
   'use strict';
 
   var defaults = {},
-      videoJsResolutionSwitcher,
-      groupedSrc;
+      videoJsResolutionSwitcher;
 
   /**
    * Initialize the plugin.
@@ -28,7 +28,6 @@
 
         MenuItem.call(this, player, options);
         this.src = options.src;
-        this.type = options.type;
 
         this.on('click', this.onClick);
         this.on('touchstart', this.onClick);
@@ -41,8 +40,10 @@
         var isPaused = player.paused();
         // Change menu button label
         label.innerHTML = this.options_.label;
-        // Change player source and wait for loadedmetadata event, then play video
-        player.src({src: this.src, type: this.type}).one( 'loadedmetadata', function() {
+        // Change player source and wait for loadeddata event, then play video
+        // loadedmetadata doesn't work right now for flash.
+        // Probably because of https://github.com/videojs/video-js-swf/issues/124
+        setSourceSanitized(this.src).one( 'loadeddata', function() {
           player.currentTime(currentTime);
           if(!isPaused){ player.play(); }
           player.trigger('resolutionchange');
@@ -50,6 +51,11 @@
       }
     });
 
+    function setSourceSanitized(sources) {
+      return player.src(sources.map(function(src) {
+        return {src: src.src, type: src.type, res: src.res};
+      }));
+    }
 
    /*
     * Resolution menu button
@@ -70,14 +76,15 @@
         }
       },
       createItems: function(){
-        var sources = this.sources;
         var menuItems = [];
-        for(var i = 0; i < sources.length; i++){
-          menuItems.push(new ResolutionMenuItem(player, {
-            label: sources[i].label,
-            src: sources[i].src,
-            type: sources[i].type
-          }));
+        var labels = (this.sources && this.sources.label) || {};
+        for (var key in labels) {
+          if (labels.hasOwnProperty(key)) {
+            menuItems.push(new ResolutionMenuItem(player, {
+              label: key,
+              src: labels[key]
+            }));
+          }
         }
         return menuItems;
       }
@@ -94,13 +101,13 @@
       }
       //Sort sources
       src = src.sort(compareResolutions);
-      groupedSrc = bucketSources(src);
-      var menuButton = new ResolutionMenuButton(player, { sources: src });
+      var groupedSrc = bucketSources(src);
+      var menuButton = new ResolutionMenuButton(player, { sources: groupedSrc });
       menuButton.el().classList.add('vjs-resolution-button');
       player.controlBar.resolutionSwitcher = player.controlBar.addChild(menuButton);
-      var newSource = chooseSrc(src);
+      var newSource = chooseSrc(src, groupedSrc);
       label.innerHTML = newSource.label;
-      player.src(newSource);
+      return setSourceSanitized(newSource);
     };
 
     /**
@@ -117,7 +124,7 @@
     /**
      * Group sources by label, resolution and type
      * @param   {Array}  src Array of sources
-     * @returns {Object} grouped sources: { label: {}, res: {}, type: {} }
+     * @returns {Object} grouped sources: { label: { key: [] }, res: { key: [] }, type: { key: [] } }
      */
     function bucketSources(src){
       var resolutions = {
@@ -125,27 +132,39 @@
         res: {},
         type: {}
       };
-      for(var i = 0; i<src.length; i++){
-        resolutions.label[src[i].label] = resolutions.label[src[i].label] || [];
-        resolutions.res[src[i].res] = resolutions.res[src[i].res] || [];
-        resolutions.type[src[i].type] = resolutions.type[src[i].type] || [];
-        resolutions.label[src[i].label].push(src[i]);
-        resolutions.res[src[i].res].push(src[i]);
-        resolutions.type[src[i].type].push(src[i]);
-      }
+      src.map(function(source) {
+        initResolutionKey(resolutions, 'label', source);
+        initResolutionKey(resolutions, 'res', source);
+        initResolutionKey(resolutions, 'type', source);
+
+        appendSourceToKey(resolutions, 'label', source);
+        appendSourceToKey(resolutions, 'res', source);
+        appendSourceToKey(resolutions, 'type', source);
+      });
       return resolutions;
+    }
+
+    function initResolutionKey(resolutions, key, source) {
+      if(resolutions[key][source[key]] == null) {
+        resolutions[key][source[key]] = [];
+      }
+    }
+
+    function appendSourceToKey(resolutions, key, source) {
+      resolutions[key][source[key]].push(source);
     }
 
     /**
      * Choose src if option.default is specified
      * @param   {Array}  src Array of sources
-     * @returns {Object} source object
+     * @param   {Object} groupedSrc {res: { key: [] }}
+     * @returns {Array} one or many source objects. As array for convenience
      */
-    function chooseSrc(src){
-      if(settings.default === 'low'){ return src[src.length - 1]; }
-      if(settings.default === 'high'){ return src[0]; }
-      if(groupedSrc.res[settings.default]){ return groupedSrc.res[settings.default][0]; }
-      return src[src.length - 1];
+    function chooseSrc(src, groupedSrc){
+      if(settings.default === 'low'){ return [src[src.length - 1]]; }
+      if(settings.default === 'high'){ return [src[0]]; }
+      if(groupedSrc.res[settings.default]){ return groupedSrc.res[settings.default]; }
+      return [src[src.length - 1]];
     }
 
     // Create resolution switcher for videos form <source> tag inside <video>
