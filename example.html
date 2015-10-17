@@ -49,7 +49,7 @@
   <script>
     videojs.options.flash.swf = "node_modules/video.js/dist/video-js.swf"
   </script>
-  <script src="lib/videojs-resolution-switcher.js"></script>
+  <script src="index.js"></script>
   <script>
     // fire up the plugin
     videojs('video', {
@@ -58,7 +58,7 @@
       width: 1000,
       plugins: {
         videoJsResolutionSwitcher: {
-          default: '360', // Default resolution [{Number}, 'low', 'high'],
+          default: 'low', // Default resolution [{Number}, 'low', 'high'],
           dynamicLabel: true // Display dynamic labels or gear symbol
         }
       }
