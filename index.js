@@ -3,6 +3,7 @@
  * Modified by Pierre Kraft
  * Licensed under the Apache-2.0 license. */
 (function(window, videojs) {
+  /* jshint eqnull: true*/
   'use strict';
 
   var defaults = {},
@@ -47,7 +48,7 @@
       // Remember player state
       var currentTime = this.player_.currentTime();
       var isPaused = this.player_.paused();
-      this.showAsLabel()
+      this.showAsLabel();
       // Change player source and wait for loadeddata event, then play video
       // loadedmetadata doesn't work right now for flash.
       // Probably because of https://github.com/videojs/video-js-swf/issues/124
@@ -68,6 +69,7 @@
      constructor: function(player, options, settings, label){
       this.sources = options.sources;
       this.label = label;
+      this.label.innerHTML = options.initialySelectedLabel;
       // Sets this.player_, this.options_ and initializes the component
       MenuButton.call(this, player, options);
       this.controlText('Quality');
@@ -96,7 +98,7 @@
             {
               label: key,
               src: labels[key],
-              initialySelected: +key === +this.options_.initialySelectedRes
+              initialySelected: key === this.options_.initialySelectedLabel
             },
             onClickUnselectOthers,
             this.label));
@@ -129,7 +131,7 @@
       src = src.sort(compareResolutions);
       var groupedSrc = bucketSources(src);
       var choosen = chooseSrc(groupedSrc, src);
-      var menuButton = new ResolutionMenuButton(player, { sources: groupedSrc, initialySelectedRes: choosen.res }, settings, label);
+      var menuButton = new ResolutionMenuButton(player, { sources: groupedSrc, initialySelectedLabel: choosen.label , initialySelectedRes: choosen.res}, settings, label);
       menuButton.el().classList.add('vjs-resolution-button');
       player.controlBar.resolutionSwitcher = player.controlBar.addChild(menuButton);
       return setSourcesSanitized(player, choosen.sources);
@@ -187,14 +189,22 @@
      */
     function chooseSrc(groupedSrc, src){
       var selectedRes = settings.default;
+      var selectedLabel = '';
       if (selectedRes === 'high') {
         selectedRes = src[0].res;
+        selectedLabel = src[0].label;
       } else if (selectedRes === 'low' || selectedRes == null) {
         // Select low-res if default is low or not set
         selectedRes = src[src.length - 1].res;
+        selectedLabel = src[src.length -1].label;
+      } else if (groupedSrc.res[selectedRes]) {
+        selectedLabel = groupedSrc.res[selectedRes][0].label;
       }
-
-      return {res: selectedRes, sources: groupedSrc.res[selectedRes]};
+      
+      if(selectedRes === undefined){
+        return {res: selectedRes, label: selectedLabel, sources: groupedSrc.label[selectedLabel]};
+      }
+      return {res: selectedRes, label: selectedLabel, sources: groupedSrc.res[selectedRes]};
     }
 
     // Create resolution switcher for videos form <source> tag inside <video>
