@@ -44,6 +44,14 @@
     <source src="https://vjs.zencdn.net/v/oceans.mp4?144" type='video/mp4' label='phone' res='144'/>
     <source src="https://vjs.zencdn.net/v/oceans.mp4?2160" type='video/mp4' label='4k' res='2160'/>
   </video>
+  
+  <div class="info">
+    <p>
+      Use flash
+    </p>
+  </div>
+
+  <video id='video_flash' class="video-js vjs-default-skin"></video>
 
   <script src="node_modules/video.js/dist/video.js"></script>
   <script>
@@ -86,6 +94,45 @@
       })
 
     })
+    
+    
+    // Use flash
+    videojs('video_flash', {
+      controls: true,
+      techOrder: ['flash'],
+      preload: 'auto',
+      width: 1000,
+      plugins: {
+        videoJsResolutionSwitcher: {
+          default: 'low', // Default resolution [{Number}, 'low', 'high'],
+          dynamicLabel: true // Display dynamic labels or gear symbol
+        }
+      }
+    }, function(){
+      var player = this;
+      window.player = player
+
+      player.updateSrc([
+        {
+          src: 'https://vjs.zencdn.net/v/oceans.mp4?sd',
+          type: 'video/mp4',
+          label: 'SD',
+          res: 360
+        },
+        {
+          src: 'https://vjs.zencdn.net/v/oceans.mp4?hd',
+          type: 'video/mp4',
+          label: 'HD',
+          res: 720
+        }
+      ])
+
+      player.on('resolutionchange', function(){
+        console.info('Source changed to %s', player.src())
+      })
+
+    })
+    
   </script>
 
 
