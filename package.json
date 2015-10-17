@@ -1,15 +1,17 @@
 {
   "name": "videojs-resolution-switcher",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "main": "./lib/videojs-resolution-switcher.js",
   "author": {
     "name": "Kasper Moskwiak",
     "email": "kasper.moskwiak@gmail.com",
     "url": "http://kspr.pl"
   },
-  "contributors": [{
-    "name": "Pierre Kraft"
-  }],
+  "contributors": [
+    {
+      "name": "Pierre Kraft"
+    }
+  ],
   "description": "Resolution switcher for video.js 5",
   "repository": {
     "type": "git",
@@ -17,7 +19,7 @@
   },
   "bugs": {
     "url": "https://github.com/kmoskwiak/videojs-resolution-switcher/issues"
-  },  
+  },
   "license": "Apache-2.0",
   "keywords": [
     "videojs",
