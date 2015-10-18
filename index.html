@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="node_modules/video.js/dist/video-js.min.css" rel="stylesheet">
   <link href="node_modules/videojs-resolution-switcher/lib/videojs-resolution-switcher.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
   <link href="style.css" rel="stylesheet">
   <script>
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -34,39 +35,185 @@
     </div>
 
   </div>
-  <div class="example">
-    <div class="info">
-      <p>
-        Set sources dynamically
-      </p>
+  
+  <div class="container-fluid section">
+    <div class="row">
+      <div class="col-md-12">
+        <h1>
+          Set sources dynamically
+        </h1>
+      </div>
     </div>
-
-    <video id='video' class="video-js vjs-default-skin"></video>
+    <div class="row">
+      <div class="col-md-6">
+        <pre>
+  videojs('video', {
+    controls: true,
+    plugins: {
+      videoJsResolutionSwitcher: {
+        default: 'low', // Default resolution [{Number}, 'low', 'high'],
+        dynamicLabel: true
+      }
+    }
+  }, function(){
+    var player = this;
+    window.player = player
+    player.updateSrc([
+      {
+        src: 'https://vjs.zencdn.net/v/oceans.mp4?SD',
+        type: 'video/mp4',
+        label: 'SD',
+        res: 360
+      },
+      {
+        src: 'https://vjs.zencdn.net/v/oceans.mp4?HD',
+        type: 'video/mp4',
+        label: 'HD',
+        res: 720
+      }
+    ])
+    player.on('resolutionchange', function(){
+      console.info('Source changed to %s', player.src())
+    })
+  })
+        </pre>
+      </div>
+      <div class="col-md-6">
+        <video id='video' class="video-js vjs-default-skin"></video>
+      </div>
+    </div>
+  </div>
+  
+  <div class="container-fluid section">
+    <div class="row">
+      <div class="col-md-12">
+        <h1>
+          Set sources inside <code>&ltvideo&gt</code> tag
+        </h1>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <pre>
+&lt;video id=&quot;video_1&quot; class=&quot;video-js vjs-default-skin&quot; controls data-setup='{}' &gt;
+  &lt;source src=&quot;https://vjs.zencdn.net/v/oceans.mp4?sd&quot; type='video/mp4' label='SD' res='480' /&gt;
+  &lt;source src=&quot;https://vjs.zencdn.net/v/oceans.mp4?hd&quot; type='video/mp4' label='HD' res='1080'/&gt;
+  &lt;source src=&quot;https://vjs.zencdn.net/v/oceans.mp4?phone&quot; type='video/mp4' label='phone' res='144'/&gt;
+  &lt;source src=&quot;https://vjs.zencdn.net/v/oceans.mp4?4k&quot; type='video/mp4' label='4k' res='2160'/&gt;
+&lt;/video&gt;
+        </pre>
+      </div>
+      <div class="col-md-6">
+        <video id="video_1" class="video-js vjs-default-skin" fluid="true" controls data-setup='{}' >
+          <source src="https://vjs.zencdn.net/v/oceans.mp4?sd" type='video/mp4' label='SD' res='480' />
+          <source src="https://vjs.zencdn.net/v/oceans.mp4?hd" type='video/mp4' label='HD' res='1080'/>
+          <source src="https://vjs.zencdn.net/v/oceans.mp4?phone" type='video/mp4' label='phone' res='144'/>
+          <source src="https://vjs.zencdn.net/v/oceans.mp4?4k" type='video/mp4' label='4k' res='2160'/>
+        </video>
+      </div>
+    </div>
+  </div>
+  
+    <div class="container-fluid section">
+    <div class="row">
+      <div class="col-md-12">
+        <h1>
+          Use flash tech
+        </h1>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <pre>
+  videojs('video', {
+    controls: true,
+    techOrder: ['flash'],
+    preload: 'auto',
+    plugins: {
+      videoJsResolutionSwitcher: {
+        default: 'low', // Default resolution [{Number}, 'low', 'high'],
+        dynamicLabel: true
+      }
+    }
+  }, function(){
+    var player = this;
+    window.player = player
+    player.updateSrc([
+      {
+        src: 'https://vjs.zencdn.net/v/oceans.mp4?SD',
+        type: 'video/mp4',
+        label: 'SD',
+        res: 360
+      },
+      {
+        src: 'https://vjs.zencdn.net/v/oceans.mp4?HD',
+        type: 'video/mp4',
+        label: 'HD',
+        res: 720
+      }
+    ])
+    player.on('resolutionchange', function(){
+      console.info('Source changed to %s', player.src())
+    })
+  })
+        </pre>
+      </div>
+      <div class="col-md-6">
+        
+        <div class="embed-responsive embed-responsive-16by9">
+          <video id='video_flash' class="video-js vjs-default-skin embed-responsive-item"></video>
+        </div>
+        
+      </div>
+    </div>
   </div>
 
-<div class="example">
-  <div class="info">
-    <p>
-      Set sources inside <code>&ltvideo&gt</code> tag
-    </p>
+  <div class="footer">
+    <a class='kspr' href="https://kspr.pl">kspr</a>
   </div>
 
-  <video id="video_1" class="video-js vjs-default-skin" width="1000" controls fluid='true' data-setup='{}' >
-    <source src="https://vjs.zencdn.net/v/oceans.mp4?sd" type='video/mp4' label='SD' res='480' />
-    <source src="https://vjs.zencdn.net/v/oceans.mp4?hd" type='video/mp4' label='HD' res='1080'/>
-    <source src="https://vjs.zencdn.net/v/oceans.mp4?phone" type='video/mp4' label='phone' res='144'/>
-    <source src="https://vjs.zencdn.net/v/oceans.mp4?4k" type='video/mp4' label='4k' res='2160'/>
-  </video>
-  </div>
   <script src="node_modules/video.js/dist/video.js"></script>
   <script src="node_modules/videojs-resolution-switcher/lib/videojs-resolution-switcher.js"></script>
   <script>
     // fire up the plugin
     videojs('video', {
       controls: true,
-      muted: true,
-      width: 1000,
       fluid: true,
+      plugins: {
+        videoJsResolutionSwitcher: {
+          default: 'low', // Default resolution [{Number}, 'low', 'high'],
+          dynamicLabel: true
+        }
+      }
+    }, function(){
+      var player = this;
+      window.player = player
+      player.updateSrc([
+        {
+          src: 'https://vjs.zencdn.net/v/oceans.mp4?SD',
+          type: 'video/mp4',
+          label: 'SD',
+          res: 360
+        },
+        {
+          src: 'https://vjs.zencdn.net/v/oceans.mp4?HD',
+          type: 'video/mp4',
+          label: 'HD',
+          res: 720
+        }
+      ])
+      player.on('resolutionchange', function(){
+        console.info('Source changed to %s', player.src())
+      })
+    })
+    
+    
+    
+    // flash tech
+    videojs('video_flash', {
+      controls: true,
+      techOrder: ['flash'],
+      preload: 'auto',
       plugins: {
         videoJsResolutionSwitcher: {
           default: 'low', // Default resolution [{Number}, 'low', 'high'],

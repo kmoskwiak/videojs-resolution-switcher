@@ -5,33 +5,66 @@ body {
   margin: 0;
   padding: 0;
   font-family: 'Roboto', sans-serif;
+  background: #eee;
 }
 
 a {
   color: aliceblue;
 }
 
+a:hover {
+  color: aliceblue;
+}
+
 .header {
-  background: #00aad3;
+  background: #0082d3;
   padding: 50px 50px 0px 50px;
   color: #fff;
   box-shadow: 0 0 20px -5px #000;
-}
-
-.example {
-  margin: 50px 0;
-  padding: 0 50px;
 }
 
 code {
   color: #007f90
 }
 
-.info {
-  font-size: 1.2em;
-}
 
 .social {
   text-align: center;
   padding: 20px;
+}
+
+pre {
+  font-size: 0.8em;
+}
+
+.section {
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 50px;
+  padding-top: 30px;
+}
+
+.footer {
+  color: #fff;
+  padding: 20px 50px;
+  text-align: center;
+}
+
+.kspr {
+  display: inline-block;
+  width: 50px;
+  line-height: 50px;
+  background: #0082d3;
+  border-radius: 100%;
+  text-align: center;
+  color: #fff;
+  text-decoration: none;
+
+  font-family: monospace;
+  box-shadow: 2px 2px 10px -5px #000;
+}
+
+.kspr:hover {
+  text-decoration: none;
+  color: #fff;
+  
 }
