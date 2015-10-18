@@ -4,7 +4,7 @@ Resolution switcher for [video.js v5](https://github.com/videojs/video.js)
 
 ## Getting Started
 
-Setup sources dynamically:
+### Setup sources dynamically:
 
 ```html
 <video id='video' class="video-js vjs-default-skin"></video>
@@ -43,7 +43,7 @@ Setup sources dynamically:
 </script>
 ```
 
-Or use `<source>` tags:
+### Or use `<source>` tags:
 
 ```html
 
@@ -51,11 +51,15 @@ Or use `<source>` tags:
    <source src="http://mirrorblender.top-ix.org/movies/sintel-1024-surround.mp4" type='video/mp4' label='SD' />
    <source src="http://media.xiph.org/mango/tears_of_steel_1080p.webm" type='video/webm' label='HD'/>
 </video>
- <script>
+<script>
   videojs('video').videoJsResolutionSwitcher()
 </script>
 
 ```
+
+### Flash tech
+
+When using flash tech `preload="auto"` is required.
 
 ## Source options
 
