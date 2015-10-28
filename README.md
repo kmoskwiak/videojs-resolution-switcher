@@ -4,6 +4,19 @@ Resolution switcher for [video.js v5](https://github.com/videojs/video.js)
 
 ## Getting Started
 
+Install plugin with
+
+**npm**
+```
+npm i videojs-resolution-switcher
+```
+
+or **bower**
+```
+bower install videojs-resolution-switcher
+```
+
+
 ### Setup sources dynamically:
 
 ```html
