@@ -6,7 +6,7 @@
   ],
   "description": "Resolution switcher for video.js 5",
   "main": [
-    "lib/videojs-resolution-switcher.js"
+    "lib/videojs-resolution-switcher.js",
     "lib/videojs-resolution-switcher.css"
   ],
   "moduleType": [
