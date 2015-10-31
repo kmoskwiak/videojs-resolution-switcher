@@ -111,7 +111,7 @@ videojs('video', {
 
 
 ### updateSrc([source])
-
+Returns video.js player object if used as setter. If `source` is not passed it acts like [player.src()](http://docs.videojs.com/docs/api/player.html#Methodssrc)
 ```javascript
 
 // Update video sources
@@ -123,7 +123,37 @@ player.updateSrc([
 
 ```
 #### PARAMETERS:
- * source `Array` array of sources
+| name | type | required | description |
+|:----:|:----:|:--------:|:-----------:|
+| source| array| no | array of sources |
+
+### currentResolution([label])
+If used as getter returns current resolution object:
+```javascript
+  {
+    label: 'SD', // current label
+    sources: [
+      { type: "video/webm", src: "http://www.example.com/path/to/video.webm", label: 'SD' },
+      { type: "video/mp4", src: "http://www.example.com/path/to/video.mp4", label: 'SD' }
+    ] // array of sources with current label
+  }
+```
+
+If used as setter returns video.js player object.
+
+
+```javascript
+
+// Get current resolution
+player.currentResolution(); // returns object {label '', sources: []}
+
+// Set resolution
+player.currentResolution('SD'); // returns videojs player object
+```
+#### PARAMETERS:
+| name | type | required | description |
+|:----:|:----:|:--------:|:-----------:|
+| label| string| no | label name |
 
 
 ## Events
