@@ -127,7 +127,7 @@ player.updateSrc([
 |:----:|:----:|:--------:|:-----------:|
 | source| array| no | array of sources |
 
-### currentResolution([label])
+### currentResolution([label], [customSourcePicker])
 If used as getter returns current resolution object:
 ```javascript
   {
@@ -154,6 +154,51 @@ player.currentResolution('SD'); // returns videojs player object
 | name | type | required | description |
 |:----:|:----:|:--------:|:-----------:|
 | label| string| no | label name |
+| customSourcePicker | function | no | cutom function to choose source |
+
+#### customSourcePicker
+If there is more than one source with the same label, player will choose source automatically. This behavior can be changed if `customSourcePicker` is passed.
+
+`customSourcePicker` must return `player` object.
+```javascript
+player.currentResolution('SD', function(_player, _sources, _label){
+  return _player.src(_sources[0]); \\ Always select first source in array
+});
+```
+`customSourcePicker` accepst 3 arguments.
+
+| name | type | required | description |
+|:----:|:----:|:--------:|:-----------:|
+| palyer| Object | yes | videojs player object |
+| sources | Array | no | array of sources |
+| label | String | no | name of label |
+
+`customSourcePicker` may be passed in options when player is initialized:
+```javascript
+
+var myCustomSrcPicker = function(_p, _s, _l){
+  // select any source you want
+  return _p.src(selectedSource);
+}
+
+videojs('video', {
+      controls: true,
+      muted: true,
+      width: 1000,
+      plugins: {
+        videoJsResolutionSwitcher: {
+          default: 'low',
+          customSourcePicker: myCustomSrcPicker
+        }
+      }
+    }, function(){
+      // this is player
+    })
+```
+
+
+### getGroupedSrc()
+Returns sources grouped by label, resolution and type.
 
 
 ## Events
