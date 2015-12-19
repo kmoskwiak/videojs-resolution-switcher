@@ -170,7 +170,7 @@ player.currentResolution('SD', function(_player, _sources, _label){
 
 | name | type | required | description |
 |:----:|:----:|:--------:|:-----------:|
-| palyer| Object | yes | videojs player object |
+| player| Object | yes | videojs player object |
 | sources | Array | no | array of sources |
 | label | String | no | name of label |
 
