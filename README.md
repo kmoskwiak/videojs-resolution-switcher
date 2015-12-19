@@ -102,6 +102,7 @@ videojs('video', {
 ### Avalible options:
 * default - `{Number}|'low'|'high'` - default resolution. If any `Number` is passed plugin will try to choose source based on `res` parameter. If `low` or `high` is passed, plugin will choose respectively worse or best resolution (if `res` parameter is specified). If `res` parameter is not specified plugin assumes that sources array is sorted from best to worse.
 * dynamicLabel - `{Boolean}` - if `true` current label will be displayed in control bar. By default gear icon is displayed.
+* customSourcePicker - `{Function}` - custom function for selecting source.
 
 ## Example
 
