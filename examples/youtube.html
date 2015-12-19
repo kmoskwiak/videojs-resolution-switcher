@@ -40,17 +40,22 @@
   <script src="../lib/videojs-resolution-switcher.js"></script>
   <script>
 
+    var sourcePicker = function(){
+      console.log('asdasd')
+    }
+
     // fire up the plugin
     videojs('video', {
       controls: true,
       muted: true,
       techOrder:  ["youtube"],
       width: 500,
-      sources: [{ "type": "video/youtube", "src": "https://www.youtube.com/watch?v=xjS6SftYQaQ"}],
+      sources: [{ "type": "video/youtube", "src": "https://www.youtube.com/watch?v=iD_MyDbP_ZE"}],
       plugins: {
         videoJsResolutionSwitcher: {
-          default: 'low', // Default resolution [{Number}, 'low', 'high'],
-          dynamicLabel: true // Display dynamic labels or gear symbol
+          default: 'low',
+          dynamicLabel: true,
+          customSourcePicker: sourcePicker
         }
       }
     }, function(){
@@ -58,7 +63,7 @@
       window.player = player;
 
       player.on('resolutionchange', function(){
-        console.info('Source changed to %s', player.src())
+        console.info('Source changed')
       })
 
     });
