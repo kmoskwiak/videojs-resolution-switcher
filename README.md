@@ -1,6 +1,8 @@
-# Video.js Resolution Switcher
+# Video.js Resolution Switcher [![Build Status](https://travis-ci.org/kmoskwiak/videojs-resolution-switcher.svg?branch=master)](https://travis-ci.org/kmoskwiak/videojs-resolution-switcher) 
 
 Resolution switcher for [video.js v5](https://github.com/videojs/video.js)
+
+
 
 ## Getting Started
 
@@ -208,4 +210,5 @@ Returns sources grouped by label, resolution and type.
 
 > Fired when resolution is changed
 
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/kmoskwiak/videojs-resolution-switcher/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
 
