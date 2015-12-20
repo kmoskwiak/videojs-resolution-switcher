@@ -81,4 +81,8 @@ module.exports = function(grunt) {
                       'qunit',
                       'concat',
                       'uglify']);
+  
+  grunt.registerTask('test', [
+    'jshint'
+  ]);
 };
