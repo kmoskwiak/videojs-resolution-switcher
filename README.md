@@ -2,7 +2,9 @@
 
 Resolution switcher for [video.js v5](https://github.com/videojs/video.js)
 
+## Example
 
+[Working example](example.html) of the plugin you can check out if you're having trouble. Or check out this [demo](https://kmoskwiak.github.io/videojs-resolution-switcher/).
 
 ## Getting Started
 
@@ -106,9 +108,6 @@ videojs('video', {
 * dynamicLabel - `{Boolean}` - if `true` current label will be displayed in control bar. By default gear icon is displayed.
 * customSourcePicker - `{Function}` - custom function for selecting source.
 
-## Example
-
-[Working example](example.html) of the plugin you can check out if you're having trouble. Or check out this [demo](https://kmoskwiak.github.io/videojs-resolution-switcher/).
 
 ## Methods
 
