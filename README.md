@@ -208,6 +208,3 @@ Returns sources grouped by label, resolution and type.
 ### resolutionchange `EVENT`
 
 > Fired when resolution is changed
-
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/kmoskwiak/videojs-resolution-switcher/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
-
