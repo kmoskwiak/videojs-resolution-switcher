@@ -28,3 +28,7 @@
 .vjs-resolution-button .vjs-menu {
   left: 0;
 }
+
+.vjs-resolution-button .vjs-menu li {
+  text-transform: none;
+}
