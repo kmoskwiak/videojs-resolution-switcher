@@ -34,14 +34,8 @@
 
   <script src="../node_modules/video.js/dist/video.js"></script>
   <script src="../node_modules/videojs-youtube/dist/Youtube.js"></script>
-  <script>
-    videojs.options.flash.swf = "node_modules/video.js/dist/video-js.swf"
-  </script>
   <script src="../lib/videojs-resolution-switcher.js"></script>
   <script>
-    var sourcePicker = function(){
-      console.log('asdasd')
-    }
     // fire up the plugin
     videojs('video', {
       controls: true,
@@ -52,8 +46,7 @@
       plugins: {
         videoJsResolutionSwitcher: {
           default: 'low',
-          dynamicLabel: true,
-          customSourcePicker: sourcePicker
+          dynamicLabel: true
         }
       }
     }, function(){
