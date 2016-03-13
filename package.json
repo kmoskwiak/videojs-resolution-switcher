@@ -38,16 +38,16 @@
     "grunt": "^0.4.5"
   },
   "devDependencies": {
-    "grunt-contrib-clean": "^0.7",
-    "grunt-contrib-concat": "^0.5",
-    "grunt-contrib-jshint": "^0.12",
-    "grunt-contrib-qunit": "^1.0",
-    "grunt-contrib-uglify": "^0.11",
-    "grunt-contrib-watch": "^0.6",
-    "video.js": "^5.4",
-    "qunitjs": "^1.20"
+    "grunt-contrib-clean": "^1.0",
+    "grunt-contrib-concat": "^1.0",
+    "grunt-contrib-jshint": "^1.0",
+    "grunt-contrib-qunit": "^1.1",
+    "grunt-contrib-uglify": "^1.0",
+    "grunt-contrib-watch": "^1.0",
+    "video.js": "^5.8",
+    "qunitjs": "^1.22"
   },
   "peerDependencies": {
-    "video.js": "^5.4"
+    "video.js": "^5.8"
   }
 }
