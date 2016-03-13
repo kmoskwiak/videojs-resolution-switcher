@@ -43,7 +43,8 @@
     "grunt-contrib-uglify": "^1.0",
     "grunt-contrib-watch": "^1.0",
     "video.js": "^5.8",
-    "qunitjs": "^1.22"
+    "qunitjs": "^1.22",
+		"videojs-youtube": "^2.0.8"
   },
   "peerDependencies": {
     "video.js": "^5.8"
