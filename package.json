@@ -18,6 +18,7 @@
   "homepage": "https://github.com/kmoskwiak/videojs-resolution-switcher#readme",
   "dependencies": {
     "video.js": "^5.0.0",
-    "videojs-resolution-switcher": "git+https://github.com/kmoskwiak/videojs-resolution-switcher.git"
+    "videojs-resolution-switcher": "git+https://github.com/kmoskwiak/videojs-resolution-switcher.git",
+		"videojs-youtube": "^2.0.8"
   }
 }

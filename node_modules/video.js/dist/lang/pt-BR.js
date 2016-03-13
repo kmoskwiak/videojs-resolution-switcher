@@ -11,7 +11,7 @@ videojs.addLanguage("pt-BR",{
  "Fullscreen": "Tela Cheia",
  "Non-Fullscreen": "Tela Normal",
  "Mute": "Mudo",
- "Unmuted": "Habilitar Som",
+ "Unmute": "Habilitar Som",
  "Playback Rate": "Velocidade",
  "Subtitles": "Legendas",
  "subtitles off": "Sem Legendas",

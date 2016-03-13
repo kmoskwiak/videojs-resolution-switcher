@@ -167,12 +167,52 @@
       </div>
     </div>
   </div>
+	
+	<div class="container-fluid section">
+    <div class="row">
+      <div class="col-md-12">
+        <h1>
+          Use <a href="https://github.com/eXon/videojs-youtube" >YouTube</a> tech
+        </h1>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <pre>
+videojs('video', {
+ controls: true,
+ techOrder:  ["youtube"],
+ sources: [{ "type": "video/youtube", "src": "https://www.youtube.com/watch?v=iD_MyDbP_ZE"}],
+ plugins: {
+  videoJsResolutionSwitcher: {
+   default: 'low',
+   dynamicLabel: true
+  }
+ }
+}, function(){
+ var player = this;
+ player.on('resolutionchange', function(){
+  console.info('Source changed')
+ })
+});
+        </pre>
+      </div>
+      <div class="col-md-6">
+        
+        <div class="embed-responsive embed-responsive-16by9">
+          <video id='video_youtube' class="video-js vjs-default-skin embed-responsive-item"></video>
+        </div>
+        
+      </div>
+    </div>
+  </div>
 
   <div class="footer">
     <a class='kspr' href="https://kspr.pl">kspr</a>
   </div>
 
   <script src="node_modules/video.js/dist/video.js"></script>
+	<script src="node_modules/videojs-youtube/dist/Youtube.js"></script>
   <script src="node_modules/videojs-resolution-switcher/lib/videojs-resolution-switcher.js"></script>
   <script>
     // fire up the plugin
@@ -241,6 +281,24 @@
         console.info('Source changed to %s', player.src())
       })
     })
+		
+		// Youtube tech
+		videojs('video_youtube', {
+		controls: true,
+		techOrder:  ["youtube"],
+		sources: [{ "type": "video/youtube", "src": "https://www.youtube.com/watch?v=iD_MyDbP_ZE"}],
+		plugins: {
+			videoJsResolutionSwitcher: {
+				default: 'low',
+				dynamicLabel: true
+			}
+		}
+	}, function(){
+		var player = this;
+		player.on('resolutionchange', function(){
+			console.info('Source changed')
+		})
+	});
   </script>
 
 

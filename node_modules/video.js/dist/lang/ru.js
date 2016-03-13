@@ -11,7 +11,7 @@ videojs.addLanguage("ru",{
  "Fullscreen": "Полноэкранный режим",
  "Non-Fullscreen": "Неполноэкранный режим",
  "Mute": "Без звука",
- "Unmuted": "Со звуком",
+ "Unmute": "Со звуком",
  "Playback Rate": "Скорость воспроизведения",
  "Subtitles": "Субтитры",
  "subtitles off": "Субтитры выкл.",

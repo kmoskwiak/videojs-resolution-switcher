@@ -11,7 +11,7 @@ videojs.addLanguage("uk",{
  "Fullscreen": "Повноекранний режим",
  "Non-Fullscreen": "Неповноекранний режим",
  "Mute": "Без звуку",
- "Unmuted": "Зі звуком",
+ "Unmute": "Зі звуком",
  "Playback Rate": "Швидкість відтворення",
  "Subtitles": "Субтитри",
  "subtitles off": "Без субтитрів",
