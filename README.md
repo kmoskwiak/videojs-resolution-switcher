@@ -4,7 +4,7 @@ Resolution switcher for [video.js v5](https://github.com/videojs/video.js)
 
 ## Example
 
-[Working example](example.html) of the plugin you can check out if you're having trouble. Or check out this [demo](https://kmoskwiak.github.io/videojs-resolution-switcher/).
+[Working examples](examples) of the plugin you can check out if you're having trouble. Or check out this [demo](https://kmoskwiak.github.io/videojs-resolution-switcher/).
 
 ## Getting Started
 
