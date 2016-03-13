@@ -10,8 +10,8 @@
 }
 
 .vjs-resolution-button .vjs-resolution-button-label {
-    font-size: 1.2em;
-    line-height: 2.30em;
+    font-size: 1em;
+    line-height: 3em;
     position: absolute;
     top: 0;
     left: 0;
@@ -19,6 +19,7 @@
     height: 100%;
     text-align: center;
     box-sizing: inherit;
+		font-family: Arial, Helvetica, sans-serif;
 }
 
 .vjs-resolution-button ul.vjs-menu-content {
@@ -31,4 +32,6 @@
 
 .vjs-resolution-button .vjs-menu li {
   text-transform: none;
+	font-size: 1em;
+	font-family: Arial, Helvetica, sans-serif;
 }
