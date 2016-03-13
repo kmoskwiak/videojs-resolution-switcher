@@ -74,6 +74,36 @@ bower install videojs-resolution-switcher
 
 ```
 
+
+### YouTube tech
+
+YouTube tech form https://github.com/eXon/videojs-youtube
+
+```html
+<video id='video' class="video-js vjs-default-skin"></video>
+<script src="../lib/videojs-resolution-switcher.js"></script>
+<script>
+	videojs('video', {
+		controls: true,
+		techOrder:  ["youtube"],
+		sources: [{ "type": "video/youtube", "src": "https://www.youtube.com/watch?v=iD_MyDbP_ZE"}],
+		plugins: {
+			videoJsResolutionSwitcher: {
+				default: 'low',
+				dynamicLabel: true
+			}
+		}
+	}, function(){
+		var player = this;
+		player.on('resolutionchange', function(){
+			console.info('Source changed')
+		})
+	});
+
+</script>
+
+```
+
 ### Flash tech
 
 When using flash tech `preload="auto"` is required.
