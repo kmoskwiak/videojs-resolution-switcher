@@ -43,23 +43,21 @@
       width: 1000,
       plugins: {
         videoJsResolutionSwitcher: {
-          default: 'low', // Default resolution [{Number}, 'low', 'high'],
-          dynamicLabel: true, // Display dynamic labels or gear symbol
-					hls: true
+          dynamicLabel: true // Display dynamic labels or gear symbol
         }
       }
     }, function(){
       var player = this;
-      window.player = player
+      window.player = player;
 
       player.updateSrc({
 				src: '//labs.tvpw.pl/video/hls/tears.m3u8',
 				type:  'application/x-mpegURL'
-			}, {hls: true})
+			}, {hls: true});
 			
       player.on('resolutionchange', function(){
-        console.info('Source changed to %s', player.src())
-      })
+        console.info('Source changed to %s', player.src());
+      });
 
     })
   </script>
