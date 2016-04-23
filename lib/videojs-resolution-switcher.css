@@ -1,12 +1,11 @@
-.vjs-resolution-button {
-  color: #ccc;
+.vjs-resolution-button.vjs-menu-icon {
   font-family: VideoJS;
+  font-weight: normal;
+  font-style: normal;
 }
 
-.vjs-resolution-button .vjs-resolution-button-staticlabel:before {
+.vjs-resolution-button.vjs-menu-icon:before {
   content: '\f110';
-  font-size: 1.8em;
-  line-height: 1.67;
 }
 
 .vjs-resolution-button .vjs-resolution-button-label {
@@ -19,19 +18,15 @@
   height: 100%;
   text-align: center;
   box-sizing: inherit;
-  font-family: Arial, Helvetica, sans-serif;
 }
 
-.vjs-resolution-button ul.vjs-menu-content {
-  width: 4em !important;
-}
-
-.vjs-resolution-button .vjs-menu {
-  left: 0;
+.vjs-resolution-button .vjs-menu .vjs-menu-content {
+  width: 4em;
+  left: 50%; /* Center the menu, in it's parent */
+  margin-left: -2em; /* half of width, to center */
 }
 
 .vjs-resolution-button .vjs-menu li {
   text-transform: none;
   font-size: 1em;
-  font-family: Arial, Helvetica, sans-serif;
 }
