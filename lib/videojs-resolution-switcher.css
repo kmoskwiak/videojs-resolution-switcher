@@ -1,11 +1,8 @@
-.vjs-resolution-button.vjs-menu-icon {
+.vjs-resolution-button.vjs-menu-icon:before {
+  content: '\f110';
   font-family: VideoJS;
   font-weight: normal;
   font-style: normal;
-}
-
-.vjs-resolution-button.vjs-menu-icon:before {
-  content: '\f110';
 }
 
 .vjs-resolution-button .vjs-resolution-button-label {
