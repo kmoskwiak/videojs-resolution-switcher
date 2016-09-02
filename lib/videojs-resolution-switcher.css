@@ -19,6 +19,19 @@
   box-sizing: inherit;
 }
 
+.vjs-resolution-button:hover > .vjs-menu {
+  opacity: 1;
+  visibility: visible;
+  transition-delay: 0s;
+}
+
+.vjs-resolution-button .vjs-menu {
+  display: block;
+  opacity: 0;
+  transition: visibility 0s linear 0.4s, opacity 0.4s linear;
+  visibility: hidden;
+}
+
 .vjs-resolution-button .vjs-menu .vjs-menu-content {
   width: 4em;
   left: 50%; /* Center the menu, in it's parent */
