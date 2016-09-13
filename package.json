@@ -1,6 +1,6 @@
 {
   "name": "videojs-resolution-switcher",
-  "version": "0.2.3",
+  "version": "0.4.2",
   "main": "./lib/videojs-resolution-switcher.js",
   "author": {
     "name": "Kasper Moskwiak",
@@ -18,7 +18,7 @@
     "url": "git@github.com:kmoskwiak/videojs-resolution-switcher.git"
   },
   "bugs": {
-    "url": "https://github.com/kmoskwiak/videojs-resolution-switcher/issues"
+    "url": "https://github.com/khmoskwiak/videojs-resolution-switcher/issues"
   },
   "license": "Apache-2.0",
   "keywords": [
@@ -31,18 +31,23 @@
     "source",
     "videojs-plugin"
   ],
-  "dependencies": {},
+  "scripts": {
+    "test": "grunt test"
+  },
   "devDependencies": {
-    "grunt-contrib-clean": "^0.7",
-    "grunt-contrib-concat": "^0.5",
-    "grunt-contrib-jshint": "^0.11",
-    "grunt-contrib-qunit": "^0.7",
-    "grunt-contrib-uglify": "^0.11",
-    "grunt-contrib-watch": "^0.6",
-    "video.js": "^5.4",
-    "qunitjs": "^1.20"
+    "grunt": "^1.0.1",
+    "grunt-contrib-clean": "^1.0",
+    "grunt-contrib-concat": "^1.0",
+    "grunt-contrib-jshint": "^1.0",
+    "grunt-contrib-qunit": "^1.1",
+    "grunt-contrib-uglify": "^1.0",
+    "grunt-contrib-watch": "^1.0",
+    "video.js": "^5.13",
+    "qunitjs": "^2.0.0-rc1",
+    "videojs-youtube": "^2.0.8",
+		"videojs-contrib-hls": "^3.5.3"
   },
   "peerDependencies": {
-    "video.js": "^5.4"
+    "video.js": "^5.13"
   }
 }

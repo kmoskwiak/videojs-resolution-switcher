@@ -1,6 +1,10 @@
-# Video.js Resolution Switcher
+# Video.js Resolution Switcher [![Build Status](https://travis-ci.org/kmoskwiak/videojs-resolution-switcher.svg?branch=master)](https://travis-ci.org/kmoskwiak/videojs-resolution-switcher) 
 
 Resolution switcher for [video.js v5](https://github.com/videojs/video.js)
+
+## Example
+
+[Working examples](examples) of the plugin you can check out if you're having trouble. Or check out this [demo](https://kmoskwiak.github.io/videojs-resolution-switcher/).
 
 ## Getting Started
 
@@ -70,6 +74,36 @@ bower install videojs-resolution-switcher
 
 ```
 
+
+### YouTube tech
+
+YouTube tech form https://github.com/eXon/videojs-youtube
+
+```html
+<video id='video' class="video-js vjs-default-skin"></video>
+<script src="../lib/videojs-resolution-switcher.js"></script>
+<script>
+	videojs('video', {
+		controls: true,
+		techOrder:  ["youtube"],
+		sources: [{ "type": "video/youtube", "src": "https://www.youtube.com/watch?v=iD_MyDbP_ZE"}],
+		plugins: {
+			videoJsResolutionSwitcher: {
+				default: 'low',
+				dynamicLabel: true
+			}
+		}
+	}, function(){
+		var player = this;
+		player.on('resolutionchange', function(){
+			console.info('Source changed')
+		})
+	});
+
+</script>
+
+```
+
 ### Flash tech
 
 When using flash tech `preload="auto"` is required.
@@ -102,10 +136,9 @@ videojs('video', {
 ### Avalible options:
 * default - `{Number}|'low'|'high'` - default resolution. If any `Number` is passed plugin will try to choose source based on `res` parameter. If `low` or `high` is passed, plugin will choose respectively worse or best resolution (if `res` parameter is specified). If `res` parameter is not specified plugin assumes that sources array is sorted from best to worse.
 * dynamicLabel - `{Boolean}` - if `true` current label will be displayed in control bar. By default gear icon is displayed.
+* customSourcePicker - `{Function}` - custom function for selecting source.
+* ui - `{Boolean}` - If set to `false` button will not be displayed in control bar. Default is `true`.
 
-## Example
-
-[Working example](example.html) of the plugin you can check out if you're having trouble. Or check out this [demo](https://kmoskwiak.github.io/videojs-resolution-switcher/).
 
 ## Methods
 
@@ -127,7 +160,7 @@ player.updateSrc([
 |:----:|:----:|:--------:|:-----------:|
 | source| array| no | array of sources |
 
-### currentResolution([label])
+### currentResolution([label], [customSourcePicker])
 If used as getter returns current resolution object:
 ```javascript
   {
@@ -154,6 +187,51 @@ player.currentResolution('SD'); // returns videojs player object
 | name | type | required | description |
 |:----:|:----:|:--------:|:-----------:|
 | label| string| no | label name |
+| customSourcePicker | function | no | cutom function to choose source |
+
+#### customSourcePicker
+If there is more than one source with the same label, player will choose source automatically. This behavior can be changed if `customSourcePicker` is passed.
+
+`customSourcePicker` must return `player` object.
+```javascript
+player.currentResolution('SD', function(_player, _sources, _label){
+  return _player.src(_sources[0]); \\ Always select first source in array
+});
+```
+`customSourcePicker` accepst 3 arguments.
+
+| name | type | required | description |
+|:----:|:----:|:--------:|:-----------:|
+| player| Object | yes | videojs player object |
+| sources | Array | no | array of sources |
+| label | String | no | name of label |
+
+`customSourcePicker` may be passed in options when player is initialized:
+```javascript
+
+var myCustomSrcPicker = function(_p, _s, _l){
+  // select any source you want
+  return _p.src(selectedSource);
+}
+
+videojs('video', {
+      controls: true,
+      muted: true,
+      width: 1000,
+      plugins: {
+        videoJsResolutionSwitcher: {
+          default: 'low',
+          customSourcePicker: myCustomSrcPicker
+        }
+      }
+    }, function(){
+      // this is player
+    })
+```
+
+
+### getGroupedSrc()
+Returns sources grouped by label, resolution and type.
 
 
 ## Events
@@ -161,5 +239,3 @@ player.currentResolution('SD'); // returns videojs player object
 ### resolutionchange `EVENT`
 
 > Fired when resolution is changed
-
-
