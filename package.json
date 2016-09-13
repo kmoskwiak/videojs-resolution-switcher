@@ -18,7 +18,7 @@
     "url": "git@github.com:kmoskwiak/videojs-resolution-switcher.git"
   },
   "bugs": {
-    "url": "https://github.com/kmoskwiak/videojs-resolution-switcher/issues"
+    "url": "https://github.com/khmoskwiak/videojs-resolution-switcher/issues"
   },
   "license": "Apache-2.0",
   "keywords": [
@@ -35,7 +35,7 @@
     "test": "grunt test"
   },
   "devDependencies": {
-    "grunt": "^0.4.5",
+    "grunt": "^1.0.1",
     "grunt-contrib-clean": "^1.0",
     "grunt-contrib-concat": "^1.0",
     "grunt-contrib-jshint": "^1.0",
@@ -43,8 +43,9 @@
     "grunt-contrib-uglify": "^1.0",
     "grunt-contrib-watch": "^1.0",
     "video.js": "^5.8",
-    "qunitjs": "^1.22",
-    "videojs-youtube": "^2.0.8"
+    "qunitjs": "^2.0.0-rc1",
+    "videojs-youtube": "^2.0.8",
+		"videojs-contrib-hls": "^2.1.1"
   },
   "peerDependencies": {
     "video.js": "^5.8"
