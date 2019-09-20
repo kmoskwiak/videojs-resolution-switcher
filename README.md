@@ -2,6 +2,8 @@
 
 Resolution switcher for [video.js v5](https://github.com/videojs/video.js)
 
+Please note that this plugin does not work for a video.js version higher than 5.
+
 ## Example
 
 [Working examples](examples) of the plugin you can check out if you're having trouble. Or check out this [demo](https://kmoskwiak.github.io/videojs-resolution-switcher/).
