@@ -47,6 +47,6 @@
     "videojs-youtube": "^2.0.8"
   },
   "peerDependencies": {
-    "video.js": "^5.8"
+    "video.js": "^7.4.1"
   }
 }
