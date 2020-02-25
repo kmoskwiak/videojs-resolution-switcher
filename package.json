@@ -42,7 +42,7 @@
     "grunt-contrib-qunit": "^1.1",
     "grunt-contrib-uglify": "^1.0",
     "grunt-contrib-watch": "^1.0",
-    "video.js": "^5.8",
+    "video.js": "^7.4.1",
     "qunitjs": "^1.22",
     "videojs-youtube": "^2.0.8"
   },
