@@ -12,7 +12,7 @@
       "name": "Pierre Kraft"
     }
   ],
-  "description": "Resolution switcher for video.js 5",
+  "description": "Resolution switcher for video.js 8",
   "repository": {
     "type": "git",
     "url": "git@github.com:kmoskwiak/videojs-resolution-switcher.git"
@@ -42,11 +42,11 @@
     "grunt-contrib-qunit": "^1.1",
     "grunt-contrib-uglify": "^1.0",
     "grunt-contrib-watch": "^1.0",
-    "video.js": "^5.8",
+    "video.js": "^7.4.1",
     "qunitjs": "^1.22",
     "videojs-youtube": "^2.0.8"
   },
   "peerDependencies": {
-    "video.js": "^5.8"
+    "video.js": "^8"
   }
 }
